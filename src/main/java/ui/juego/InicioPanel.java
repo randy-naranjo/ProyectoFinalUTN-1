@@ -1,11 +1,19 @@
 package ui.juego;
 
-import common.Interfaces.UIPanel
+import common.Enums.DificultadesEnum;
+import common.Interfaces.UIPanel;
+import model.Jugador;
+import service.JugadorService;
+import service.PartidaService;
 import ui.juego.menu.MenuPanel;
+import ui.juego.partida.PartidaFrame;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class InicioPanel extends UIPanel {
+    private PartidaService partidaService = PartidaService.getInstance();
+    private JugadorService jugadorService = JugadorService.getInstance();
 
     private JButton btnIniciarJuego;
     private MenuPanel menuPanel;
@@ -37,7 +45,15 @@ public class InicioPanel extends UIPanel {
 
         btnIniciarJuego.addActionListener(e -> {
 
+            Jugador jugadorSeleccionado = jugadorService.getJugadorSeleccionado();
+            DificultadesEnum dificultadSeleccionada = partidaService.getDificultadSeleccionada();
 
+            if(jugadorSeleccionado == null || dificultadSeleccionada == null){
+                JOptionPane.showMessageDialog(this, "Debe Seleccionar un Jugador y una Dificultad");
+                return;
+            }
+
+            new PartidaFrame();
         });
     }
 

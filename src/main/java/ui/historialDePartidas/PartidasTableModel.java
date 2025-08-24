@@ -1,4 +1,5 @@
 package ui.historialDePartidas;
+import common.Utils;
 import model.Partida;
 
 import javax.swing.table.AbstractTableModel;
@@ -44,7 +45,7 @@ public class PartidasTableModel extends AbstractTableModel {
             case 0 -> partida.getId();
             case 1 -> partida.getJugador().getNombre();
             case 2 -> partida.getDificultad();
-            case 3 -> partida.getTiempo();
+            case 3 -> Utils.castearTiempo(partida.getTiempo());
             case 4 -> partida.getIntentos();
             case 5 -> partida.isGanada() ? "Ganada" : "Perdida";
             default -> null;

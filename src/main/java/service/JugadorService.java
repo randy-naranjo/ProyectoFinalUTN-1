@@ -11,12 +11,22 @@ public class JugadorService {
     private static JugadorService instance;
     private final JugadorDAO dao = new JugadorDAO();
 
+    private Jugador JugadorSeleccionado;
+
     private JugadorService() {}
     public static JugadorService getInstance() {
         if (instance == null) {
             instance = new JugadorService();
         }
         return instance;
+    }
+
+    public Jugador getJugadorSeleccionado() {
+        return JugadorSeleccionado;
+    }
+
+    public void setJugadorSeleccionado(Jugador jugadorSeleccionado) {
+        JugadorSeleccionado = jugadorSeleccionado;
     }
 
     public void crearJugador(Jugador jugador) throws Exception {

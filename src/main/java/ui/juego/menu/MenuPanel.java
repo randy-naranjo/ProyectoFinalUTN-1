@@ -7,6 +7,7 @@ import ui.juego.menu.components.SeleccionarDificultadComponent;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class MenuPanel extends UIPanel {
 
@@ -20,6 +21,8 @@ public class MenuPanel extends UIPanel {
 
     @Override
     public void inicializar() {
+        enableEvents(AWTEvent.ACTION_EVENT_MASK);
+
         inicializarPanelIzquierdo();
         inicializarPanelCrearJugador();
 
@@ -52,5 +55,20 @@ public class MenuPanel extends UIPanel {
 
         crearJugadorPanel = new JPanel(new BorderLayout());
         crearJugadorPanel.add(crudJugadorComponent, BorderLayout.CENTER);
+    }
+
+    @Override
+    protected void processEvent(AWTEvent e) {
+        super.processEvent(e);
+        if (e instanceof ActionEvent) {
+            ActionEvent ae = (ActionEvent) e;
+
+            switch (ae.getActionCommand()){
+                case "jugadorSeleccionado":
+                    var crudJugador = (CrudJugadorComponent) crudJugadorComponent;
+                    crudJugador.setNombreJugadorSeleccionado();
+                    break;
+            }
+        }
     }
 }

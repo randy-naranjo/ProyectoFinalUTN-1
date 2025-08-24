@@ -8,6 +8,7 @@ import ui.juego.menu.MenuPanel;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,11 +62,22 @@ public class ListaJugadoresComponent extends UIPanel {
                 btnJugador.setBackground(new Color(28, 148, 100));
 
                 jugadorService.setJugadorSeleccionado(jugador);
+                emitirJugadorSeleccionado();
             });
 
             if(jugador.equals(jugadorService.getJugadorSeleccionado())){
                 btnJugador.setBackground(new Color(28, 148, 100));
             }
+        }
+    }
+
+    private void emitirJugadorSeleccionado(){
+        ActionEvent evento = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "jugadorSeleccionado");
+
+        Container padre = SwingUtilities.getAncestorOfClass(MenuPanel.class, this);
+
+        if (padre != null) {
+            padre.dispatchEvent(evento);
         }
     }
 }

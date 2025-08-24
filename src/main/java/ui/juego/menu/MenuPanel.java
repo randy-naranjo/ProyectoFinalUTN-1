@@ -64,6 +64,13 @@ public class MenuPanel extends UIPanel {
             ActionEvent ae = (ActionEvent) e;
 
             switch (ae.getActionCommand()){
+                case "refrescar":
+                    var lista = (ListaJugadoresComponent) listaJugadoresComponent;
+
+                    lista.inicializar();
+                    lista.revalidate();
+                    lista.repaint();
+                    break;
                 case "jugadorSeleccionado":
                     var crudJugador = (CrudJugadorComponent) crudJugadorComponent;
                     crudJugador.setNombreJugadorSeleccionado();

@@ -9,6 +9,7 @@ import ui.juego.menu.MenuPanel;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class CrudJugadorComponent extends UIPanel {
     private JugadorService jugadorService = JugadorService.getInstance();
@@ -67,6 +68,16 @@ public class CrudJugadorComponent extends UIPanel {
         add(panelBotones);
     }
 
+    private void refrescarListaJugadores(){
+        ActionEvent evento = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "refrescar");
+
+        Container padre = SwingUtilities.getAncestorOfClass(MenuPanel.class, this);
+
+        if (padre != null) {
+            padre.dispatchEvent(evento);
+        }
+    }
+
     private void crearJugador(ActionEvent event){
         String nombre = txtNombreJugador.getText();
 
@@ -81,6 +92,7 @@ public class CrudJugadorComponent extends UIPanel {
         try {
             jugadorService.crearJugador(nuevoJugador);
             JOptionPane.showMessageDialog(this, "Jugador Creado con Exito");
+            refrescarListaJugadores();
         } catch (JugadorExisteException ex){
             JOptionPane.showMessageDialog(this,ex.getMessage());
         } catch (Exception ex) {
@@ -105,6 +117,7 @@ public class CrudJugadorComponent extends UIPanel {
         try {
             jugadorService.modificarJugador(jugadorSeleccionado);
             JOptionPane.showMessageDialog(this, "Jugador Modificado con Exito");
+            refrescarListaJugadores();
         } catch (JugadorExisteException ex){
             JOptionPane.showMessageDialog(this, ex.getMessage());
         } catch (Exception ex) {
@@ -132,6 +145,7 @@ public class CrudJugadorComponent extends UIPanel {
 
                 jugadorService.setJugadorSeleccionado(null);
                 txtNombreJugador.setText("");
+                refrescarListaJugadores();
             }
 
         } catch (Exception ex){

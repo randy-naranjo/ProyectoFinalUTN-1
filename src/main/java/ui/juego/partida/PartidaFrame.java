@@ -164,7 +164,7 @@ public class PartidaFrame extends JFrame {
     public void submitPartida(boolean isGanada){
         if(partida == null) return;
         partida.setIntentos(panelInfo.getIntentos());
-        partida.setTiempo(panelInfo.getTiempoRestante());
+        partida.setTiempo(partidaService.getTiempo() - panelInfo.getTiempoRestante());
         partida.setGanada(isGanada);
 
         partidaService.crear(partida);

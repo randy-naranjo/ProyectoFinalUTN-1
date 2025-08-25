@@ -24,7 +24,7 @@ public class JugadorDAO {
     }
 
     public List<Jugador> listarTodos() {
-        TypedQuery<Jugador> query = em.createQuery("SELECT j FROM Jugador j", Jugador.class);
+        TypedQuery<Jugador> query = em.createQuery("SELECT j FROM Jugador j WHERE activo = true", Jugador.class);
         return query.getResultList();
     }
 
@@ -40,16 +40,14 @@ public class JugadorDAO {
         EntityTransaction tx = em.getTransaction();
         ValidadorEntity.validar(jugador);
         tx.begin();
-        if (!em.contains(jugador)) {
-            jugador = em.merge(jugador);
-        }
-        em.remove(jugador);
+        jugador.setActivo(false);
+        em.merge(jugador);
         tx.commit();
     }
 
     public Jugador buscarPorNombre(String nombre){
         try {
-            Jugador jugador = em.createQuery("SELECT j FROM Jugador j WHERE nombreUsuario = :nombre", Jugador.class)
+            Jugador jugador = em.createQuery("SELECT j FROM Jugador j WHERE nombreUsuario = :nombre and activo = true", Jugador.class)
                     .setParameter("nombre", nombre)
                     .getSingleResult();
             return jugador;

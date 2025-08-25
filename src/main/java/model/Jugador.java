@@ -15,20 +15,30 @@ public class Jugador {
     private Long id;
 
     @Size(min = 2, max = 100, message = "El nombre debe tener entre 2 y 100 caracteres")
-    @Column(name = "nombre_usuario", nullable = false, unique = true)
+    @Column(name = "nombre_usuario", nullable = false)
     private String nombreUsuario;
 
     @Column(name = "fecha_registro", nullable = false)
     private LocalDate fechaRegistro = LocalDate.now();
 
-    @OneToMany(mappedBy = "jugador", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "jugador", cascade = CascadeType.ALL)
     private List<Partida> partidas = new ArrayList<>();
+
+    private boolean activo = true;
 
     public Jugador() {}
 
     public Jugador(String nombreUsuario, LocalDate fechaRegistro) {
         this.nombreUsuario = nombreUsuario;
         this.fechaRegistro = fechaRegistro;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 
     public Long getId() { return id; }

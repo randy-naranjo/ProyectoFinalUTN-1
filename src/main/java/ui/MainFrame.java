@@ -1,6 +1,7 @@
 package ui;
 
 import common.Interfaces.UIPanel;
+import service.JugadorService;
 import ui.historialDePartidas.HistorialPanel;
 import ui.juego.InicioPanel;
 
@@ -34,6 +35,7 @@ public class MainFrame extends JFrame {
 
         contentPanel.add(inicioPanel, "INICIO");
         contentPanel.add(historialPanel, "HISTORIAL");
+
 
         //Navbar
         JPanel navbar = new JPanel(new FlowLayout(FlowLayout.LEFT));
